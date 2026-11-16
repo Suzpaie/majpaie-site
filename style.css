@@ -1,14 +1,14 @@
 :root {
-  --fond: #EEF3EA;
-  --encre: #1E3528;
+  --fond: #F7F4EC;
+  --encre: #1F3B2E;
   --texte: #3A4F42;
-  --accent: #F4B183;
+  --accent: #D88A66;
   --blanc: #FFFFFF;
-  --trait: #C9D6C6;
+  --trait: #D9D6C8;
   --clair: #D5E0D6;
   --rayon: 28px;
-  --titres: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
-  --corps: 'DM Sans', system-ui, sans-serif;
+  --titres: 'Manrope', 'Trebuchet MS', sans-serif;
+  --corps: 'Inter', system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -27,7 +27,7 @@ body {
 h1, h2, h3 {
   margin: 0;
   font-family: var(--titres);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.015em;
   text-wrap: balance;
 }
@@ -62,17 +62,12 @@ a { color: var(--encre); }
   min-height: 44px;
   text-decoration: none;
   font-family: var(--titres);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1.35rem;
 }
-.marque::before {
-  content: "";
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--encre);
-}
+.marque .logo { width: auto; height: 42px; flex: none; }
+.marque-nom { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.02em; line-height: 1; }
+.marque-nom span { color: var(--accent); }
 .menu { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 26px; }
 .menu a, .menu .inactif { padding: 12px 0; text-decoration: none; font-weight: 500; }
 .menu a[aria-current="page"] {
@@ -81,14 +76,14 @@ a { color: var(--encre); }
   text-underline-offset: 6px;
 }
 .menu .bouton { min-height: 44px; padding: 8px 20px; font-size: 0.95rem; font-weight: 700; color: var(--blanc); text-decoration: none; }
-.menu .bouton--abricot { color: var(--encre); }
+.menu .bouton--abricot { color: var(--blanc); }
 .menu .bouton + .bouton { margin-left: -14px; }
 .sous-menu { position: relative; }
 .sous-menu-bouton { display: inline-flex; align-items: center; gap: 6px; padding: 12px 0; background: none; border: 0; color: var(--encre); font: 500 1rem var(--corps); cursor: pointer; }
 .sous-menu.actif .sous-menu-bouton { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .sous-menu-bouton svg { transition: transform 0.15s; }
 .sous-menu-bouton[aria-expanded="true"] svg { transform: rotate(180deg); }
-.sous-menu-liste { display: none; flex-direction: column; position: absolute; top: 100%; left: -14px; z-index: 10; min-width: 210px; padding: 8px; background: var(--blanc); border-radius: 18px; box-shadow: 0 14px 32px rgba(30, 53, 40, 0.14); }
+.sous-menu-liste { display: none; flex-direction: column; position: absolute; top: 100%; left: -14px; z-index: 10; min-width: 210px; padding: 8px; background: var(--blanc); border-radius: 18px; box-shadow: 0 14px 32px rgba(31, 59, 46, 0.14); }
 .sous-menu-bouton[aria-expanded="true"] + .sous-menu-liste { display: flex; }
 @media (hover: hover) and (min-width: 981px) {
   .sous-menu:hover .sous-menu-liste { display: flex; }
@@ -135,7 +130,7 @@ a { color: var(--encre); }
   text-decoration: none;
   cursor: pointer;
 }
-.bouton:hover { background: #0F2117; }
+.bouton:hover { background: #14281F; }
 .bouton--contour { background: transparent; color: var(--encre); box-shadow: inset 0 0 0 2px var(--encre); }
 .bouton--contour:hover { background: var(--encre); color: var(--blanc); }
 .lien { display: inline-block; padding: 12px 0; font-weight: 700; }
@@ -225,18 +220,27 @@ a { color: var(--encre); }
   padding-bottom: clamp(10px, 3vh, 80px);
 }
 @media (max-width: 900px) { .hero .conteneur { grid-template-columns: minmax(0, 1fr); } }
-.hero h1 { font-size: clamp(1.4rem, 8.4vw, 3.8rem); text-wrap: wrap; }
+/* Le corps du titre est une variable : toutes les pages au format de l'accueil ont un titre de même hauteur. */
+.hero { --corps-titre: clamp(1.4rem, 8.4vw, 3.8rem); }
+@media (min-width: 901px) { .hero { --corps-titre: clamp(2rem, 4.6vw, 3.8rem); } }
+.hero h1 { font-size: var(--corps-titre); line-height: calc(var(--corps-titre) * 1.05); text-wrap: wrap; }
 .hero h1 .ligne { display: block; }
-@media (min-width: 901px) { .hero h1 { font-size: clamp(2rem, 4.6vw, 3.8rem); } }
+/* Titre un peu plus long (page Paie classique) : même corps que l'accueil, lettres très légèrement resserrées
+   pour que le bloc garde exactement la même largeur. */
+.hero--titre-long h1 { letter-spacing: -0.04386em; }
 /* Petits rappels graphiques dans le titre : éclat abricot et trait de soulignement. */
 .avec-eclat { position: relative; }
 .avec-eclat .eclat { top: -0.14em; right: auto; left: -0.46em; width: 0.42em; height: 0.42em; stroke-width: 3; transform: scaleX(-1); }
 .souligne { position: relative; z-index: 0; white-space: nowrap; }
-.souligne::after { content: ""; position: absolute; z-index: -1; left: -0.04em; right: -0.04em; bottom: -0.14em; height: 0.2em; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C45 3 120 2 197 7' fill='none' stroke='%23F4B183' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%; }
+.souligne::after { content: ""; position: absolute; z-index: -1; left: -0.04em; right: -0.04em; bottom: -0.14em; height: 0.2em; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9C45 3 120 2 197 7' fill='none' stroke='%23D88A66' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 100%; }
 /* La phrase d'accroche prend exactement la largeur du titre, jamais plus. */
 .hero-titre { display: inline-block; max-width: 100%; }
 .hero-titre h1 { margin-bottom: clamp(10px, 2.3vh, 20px); }
-.hero-titre p { width: 0; min-width: 100%; max-width: none; }
+.hero-titre p { width: 0; min-width: 100%; max-width: none; min-height: calc(3 * 1.6em); }
+/* Hauteurs réservées : les blocs ont exactement la même hauteur d'une page à l'autre, quel que soit le texte. */
+@media (min-width: 901px) and (max-width: 1199px) { .hero-titre p { min-height: calc(4 * 1.6em); } }
+@media (min-width: 901px) and (max-width: 1279px) { .services > :not(.synchro) { min-height: 54px; } }
+@media (min-width: 901px) and (max-width: 1140px) { .offre .services .synchro { min-height: 44px; } }
 .hero-texte { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
 .hero-texte p { font-size: 1.15rem; max-width: 520px; }
 .hero-intro { display: flex; flex-direction: column; gap: 10px; }
@@ -250,7 +254,7 @@ a { color: var(--encre); }
 .services .icone svg { width: 17px; height: 17px; }
 /* Un pointillé part de la mention « Trois services connectés » et relie les trois services. */
 .services > * { position: relative; }
-.services > :not(:last-child)::before { content: ""; position: absolute; left: 20px; top: 50%; height: calc(50% + 22px); border-left: 2px dotted rgba(30, 53, 40, 0.45); }
+.services > :not(:last-child)::before { content: ""; position: absolute; left: 20px; top: 50%; height: calc(50% + 22px); border-left: 2px dotted rgba(31, 59, 46, 0.45); }
 .services .icone { position: relative; z-index: 1; }
 .services .synchro { margin: 0; min-height: 0; padding: 0 8px 2px 4px; gap: 12px; border-radius: 0; font-family: var(--titres); font-size: 1.08rem; font-weight: 700; line-height: 1.2; color: var(--encre); text-wrap: balance; }
 .services .synchro .icone { width: 28px; height: 28px; margin: 0 3px; background: var(--accent); }
@@ -264,8 +268,8 @@ a { color: var(--encre); }
 .eclat { position: absolute; top: -10px; right: -26px; width: 24px; height: 24px; fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-linecap: round; }
 .unite { margin-top: -5px; font-size: 0.84rem; color: var(--texte); }
 .prix-appel .bouton { gap: 8px; min-height: 44px; margin-top: 10px; padding: 8px 20px; font-size: 0.95rem; white-space: nowrap; }
-.bouton--abricot { background: var(--accent); color: var(--encre); }
-.bouton--abricot:hover { background: #EFA06C; }
+.bouton--abricot { background: var(--accent); color: var(--blanc); }
+.bouton--abricot:hover { background: #CC7A55; }
 @media (min-width: 901px) and (max-width: 1040px) {
   .services { flex: 1.25 1 0; }
   .prix-appel { padding: 8px; }
@@ -279,7 +283,7 @@ a { color: var(--encre); }
   .services { padding-right: 0; }
   .prix-appel { margin-top: 10px; padding: 18px 6px 6px; border-left: 0; border-top: 1px solid var(--trait); }
 }
-.hero-visuel { position: relative; align-self: stretch; min-height: 300px; background: #D9E5D3; border-radius: 210px 210px var(--rayon) var(--rayon); }
+.hero-visuel { position: relative; align-self: stretch; min-height: 300px; background: #E4EADB; border-radius: 210px 210px var(--rayon) var(--rayon); }
 .hero-visuel svg { position: absolute; inset: 4% 2% 2%; width: 96%; height: 94%; overflow: visible; }
 @media (max-width: 900px) { .hero-visuel { width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: 1 / 1.08; } }
 .liste-coches { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
